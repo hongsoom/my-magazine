@@ -10,7 +10,6 @@ const Post = () => {
   const data = useSelector((state) => state.magazine.magazine);
   const is_login = useSelector((state) => state.user.is_login);
 
-
   const navigate = useNavigate();
 
   return (
@@ -21,7 +20,7 @@ const Post = () => {
             <ProfileBox>
               <ProandName>
                 <img src={profile} alt="profile"></img>
-                <p>{list.name}</p>
+                <p>?</p>
               </ProandName>
               <LoginButton>
                 {is_login ? (
@@ -57,9 +56,8 @@ const Box = styled.div`
 `;
 
 const PostBox = styled.div`
-  margin-bottom: 20px;
+  margin-bottom: 50px;
   width: 500px;
-  border: 1px solid black;
 `;
 
 const ProfileBox = styled.div`

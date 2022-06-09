@@ -21,7 +21,7 @@ const Header = () => {
           {is_login ? (
             <Content>
              <img src={profile} alt="profile"></img>
-             <p>{user[0].name}</p>
+             <p>?</p>
              <button onClick={ () => dispatch(LogoutFB())}><TiExport size='30' /></button>
            </Content>
           ) : (
@@ -35,7 +35,6 @@ const Header = () => {
 }
 
 const Wrapper = styled.div`
-  position: fixed;
   top: 0;
   left: 0;
   z-index: 10;

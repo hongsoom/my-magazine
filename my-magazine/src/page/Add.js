@@ -14,7 +14,7 @@ const Add = () => {
     const [imageName, setimageName ] = useState("");
     const [text, setText] = useState("");
 
-    const name = useSelector((state) => state.user.user);
+    const user = useSelector((state) => state.user.user);
 
     const file_link_ref = useRef(null);
 
@@ -44,8 +44,6 @@ const Add = () => {
        dispatch(addMagazineFB({
         text,
         image_url : file_link_ref.current.url,
-        name,
-        date : new Date(),
        }))
        navigate('/');
     }
