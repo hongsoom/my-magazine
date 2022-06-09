@@ -1,23 +1,25 @@
 import React, { useRef, useState }from 'react';
 import styled from 'styled-components';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import { useDispatch, useSelector } from "react-redux"; 
 import { storage } from "../shared/firebase";
 import { ref, uploadBytes, getDownloadURL } from "firebase/storage"
-import { addMagazineFB } from "../redux/modules/magazine";
+import { modifyMagazineFB } from "../redux/modules/magazine";
 
-const Add = () => {
+const Edit = () => {
     const navigate = useNavigate();
     const dispatch = useDispatch();
 
+    const data = useSelector((state) => state.magazine.magazine);
+
+    const index  = useParams().index;
+    const magazine_id =  useParams().id;
+
     const [layout, setLayout] = useState('top');
-    const [preview, setPreview ] = useState("");
+    const [preview, setPreview ] = useState(data[index].image_url);
     const [imageName, setimageName ] = useState("");
+    const [text, setText] = useState(data[index].text);
 
-    const name = useSelector((state) => state.user.user);
-    console.log(name)
-
-    const text_ref = useRef(null);
     const file_link_ref = useRef(null);
 
     const uploadFB = async (e) => {
@@ -30,8 +32,7 @@ const Add = () => {
         const file =  e.target.files[0];
         
         setimageName(file.name);
-        
-        console.log(file)
+
         reader.readAsDataURL(file);
         reader.onload = function(e) { 
             setPreview(e.target.result);
@@ -42,21 +43,20 @@ const Add = () => {
         file_link_ref.current = { url : file_url };
     }
 
-    const addMagazine = () => {
-       dispatch(addMagazineFB({
-        text : text_ref.current.value,
+    const modifyMagazine = () => {
+       dispatch(modifyMagazineFB({
+        text,
         image_url : file_link_ref.current.url,
-        name,
-       }))
+       }, magazine_id))
        navigate('/');
     }
 
     return(
         <Content>
-            <Title>게시글 작성</Title>
+            <Title>게시글 수정</Title>
             <Layout>
                 <h4>Layout</h4>
-                <select name="layout" value={layout} onChange={(e) => { setLayout(e.target.value); }}>
+                <select name="layout" value={layout} onChange={(e) => { setLayout(e.target.value);}}>
                     <option value="left">왼쪽(내용) + 오른쪽(이미지)</option>
                     <option value="right">왼쪽(이미지) + 오른쪽(내용)</option>
                     <option value="top">위(내용) + 아래(이미지)</option>
@@ -70,8 +70,8 @@ const Add = () => {
             <PreviewContainer>
                 <img src={preview} alt="preview" />
             </PreviewContainer>
-            <textarea placeholder='게시글 작성' ref={text_ref}/> <br/>
-            <button type="button" onClick={addMagazine} disabled={text_ref === "" || file_link_ref === "" ? true : false}>게시글 작성</button> <br/>
+            <textarea placeholder='게시글 수정' value={text} onChange={(e) => { setText(e.target.value);}} /> <br/>
+            <button type="button" onClick={modifyMagazine} disabled={text === "" || file_link_ref === "" ? true : false}>게시글 수정</button> <br/>
         </Content>
     )
 }
@@ -123,5 +123,4 @@ const PreviewContainer = styled.div`
         max-width: 50%;
     }
 `;
-
-export default Add;
+export default Edit;

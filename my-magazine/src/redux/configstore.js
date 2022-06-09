@@ -1,11 +1,16 @@
 import { createStore, combineReducers, applyMiddleware } from "redux";
 import thunk from "redux-thunk";
-import users from "./modules/users";
+import magazine from "./modules/magazine";
+import user from "./modules/user";
 
 const middlewares = [thunk];
+
 const enhancer = applyMiddleware(...middlewares);
 
-const rootReducer = combineReducers({ users });
+const rootReducer = combineReducers({ 
+    magazine : magazine,
+    user : user,
+});
 
 const store = createStore(rootReducer, enhancer);
 
