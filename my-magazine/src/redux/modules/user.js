@@ -8,11 +8,12 @@ const LOG_OUT = 'user/LOG_OUT';
 
 const initialState = {
     user : "",
+    name : "",
     is_login: false,
 };
 
-export const Login = (user_name) => {
-    return { type: LOG_IN, user_name };
+export const Login = (user_name, user_id) => {
+    return { type: LOG_IN, user_name, user_id };
 };
 
 export const Join = (user) => {
@@ -25,7 +26,7 @@ export const Logout = (user) => {
 
 // middlewares
 export const LoginFB = (id, pw) => {
-    return async function (dispatch, {history}) {
+    return async function (dispatch) {
         const user = await signInWithEmailAndPassword(
             auth,
             id,
@@ -48,8 +49,8 @@ export const LoginFB = (id, pw) => {
         user_docs.forEach((u) => {
             user_name.push(u.data());
         }); 
-        console.log(user_name)
-        dispatch(Login(user_name))
+
+        dispatch(Login(user_name[0].name, user_name[0].id ))
     }
   }
   
@@ -92,7 +93,7 @@ export const LogoutFB = () => {
   export default function reducer(state = initialState, action = {}) {
     switch (action.type) {
       case "user/LOG_IN":
-        return {is_login: true, user : action.user_name};
+        return {is_login: true, name : action.user_name, user : action.user_id };
   
       case "user/JOIN": 
         break;

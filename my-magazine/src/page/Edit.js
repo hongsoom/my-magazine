@@ -60,7 +60,7 @@ const Edit = () => {
                 <input type="file" id="file" onChange={uploadFB}/> <br/>
             </FileUpload>
             <PreviewContainer>
-                <img src={preview} alt="preview" />
+                <img src={preview} />
             </PreviewContainer>
             <textarea placeholder='게시글 수정' value={text} onChange={(e) => { setText(e.target.value);}} /> <br/>
             <button type="button" onClick={modifyMagazine} disabled={text === "" || file_link_ref === "" ? true : false}>게시글 수정</button> <br/>
@@ -73,6 +73,9 @@ const Content = styled.div`
     flex-direction : column;
     align-items : center;
     margin-top : 100px;
+    button{
+        font-weight : 900;
+    }
 `;
 
 const Title = styled.div`
@@ -113,6 +116,7 @@ const PreviewContainer = styled.div`
     align-items: center;
     & img {
         max-width: 50%;
+        margin-bottom : 50px;
     }
 `;
 export default Edit;

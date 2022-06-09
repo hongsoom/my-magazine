@@ -14,7 +14,7 @@ const Add = () => {
     const [imageName, setimageName ] = useState("");
     const [text, setText] = useState("");
 
-    const user = useSelector((state) => state.user.user);
+    const name = useSelector((state) => state.user.name);
 
     const file_link_ref = useRef(null);
 
@@ -44,6 +44,8 @@ const Add = () => {
        dispatch(addMagazineFB({
         text,
         image_url : file_link_ref.current.url,
+        date : new Date().toLocaleString(),
+        name,
        }))
        navigate('/');
     }
@@ -57,7 +59,7 @@ const Add = () => {
                 <input type="file" id="file" onChange={uploadFB}/> <br/>
             </FileUpload>
             <PreviewContainer>
-                <img src={preview} alt="preview" />
+                <img src={preview} />
             </PreviewContainer>
             <textarea placeholder='게시글 작성' value={text} onChange={(e) => { setText(e.target.value);}}/> <br/>
             <button type="button" onClick={addMagazine} disabled={text === "" || file_link_ref === "" ? true : false}>게시글 작성</button> <br/>
@@ -70,6 +72,9 @@ const Content = styled.div`
     flex-direction : column;
     align-items : center;
     margin-top : 100px;
+    button{
+        font-weight : 900;
+    }
 `;
 
 const Title = styled.div`
@@ -110,6 +115,7 @@ const PreviewContainer = styled.div`
     align-items: center;
     & img {
         max-width: 50%;
+        margin-bottom : 50px;
     }
 `;
 

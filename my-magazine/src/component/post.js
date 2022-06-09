@@ -8,7 +8,7 @@ import { FaEdit } from "react-icons/fa";
 
 const Post = () => {
   const data = useSelector((state) => state.magazine.magazine);
-  const is_login = useSelector((state) => state.user.is_login);
+  const name = useSelector((state) => state.user.name);
 
   const navigate = useNavigate();
 
@@ -20,10 +20,10 @@ const Post = () => {
             <ProfileBox>
               <ProandName>
                 <img src={profile} alt="profile"></img>
-                <p>?</p>
+                <p>{list.name}</p>
               </ProandName>
               <LoginButton>
-                {is_login ? (
+                {name === list.name ? (
                   <button
                     onClick={() =>
                       navigate("/Edit/" + index + "/" + `${list.id}`)
@@ -39,6 +39,7 @@ const Post = () => {
             >
               <p>{list.text}</p> <br />
               <img src={list.image_url} alt="post_image" />
+              <p>{list.date}</p>
             </Content>
           </PostBox>
         );
@@ -89,7 +90,7 @@ const Content = styled.div`
   }
   p {
     font-weight: 900;
-    height: 100px;
+    height: 20px;
   }
 `;
 

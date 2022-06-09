@@ -42,6 +42,10 @@ export const loadMagazineFB = () => {
         magazine_list.push({id:doc.id, ...doc.data()});
     });
 
+    magazine_list.sort((a,b) => {
+      return b.date - a.date;
+    })
+
     dispatch(loadMagazine(magazine_list));
   }
 }
@@ -50,7 +54,7 @@ export const addMagazineFB = (magazine) => {
   return async function (dispatch) {
     const docRef = await addDoc(collection(db, "magazines"), magazine);
     const magazine_data = {id: docRef.id, ...magazine};
-    console.log(magazine_data)
+
     dispatch(addMagazine(magazine_data));
   }
 }
@@ -94,6 +98,9 @@ export default function reducer(state = initialState, action = {}) {
   
       case "magazines/ADD": {
         const new_magazine_list = [...state.magazine, action.magazine];
+        new_magazine_list.sort((a,b) => {
+          return b.date - a.date;
+        })
         return { magazine: new_magazine_list };
       }
 

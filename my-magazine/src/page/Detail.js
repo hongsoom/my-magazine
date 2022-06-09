@@ -10,11 +10,10 @@ const Detail = () => {
     const dispatch = useDispatch();
 
     const data = useSelector((state) => state.magazine.magazine);
-    const is_login = useSelector((state) => state.user.is_login);
-    //const user = useSelector((state) => state.user.user);
+    const name = useSelector((state) => state.user.name);
 
     const index  = useParams().index;
-    const magazine_id =  useParams().id;
+    const magazine_id = useParams().id;
 
     const delete_post = () => {
         dispatch(deleteMagazineFB(
@@ -25,12 +24,12 @@ const Detail = () => {
   
     return(
         <>
-        <Content>       
+        <Content>
+            <p>{data[index].text}</p>       
             <img src={data[index].image_url} alt="post_image"/>
-            {data[index].text}
         </Content>
         <Delete>           
-         {is_login ? <button onClick={delete_post}><FaTrashAlt size='20'/></button> : null }
+         {name === data[index].name ? <button onClick={delete_post}><FaTrashAlt size='20'/></button> : null }
         </Delete>            
         </> 
     )
@@ -43,6 +42,10 @@ const Content = styled.div`
     margin-top: 100px;
     position:relative; 
     margin-bottom:45px; 
+    p{
+        font-weight : 900;
+        margin-bottom : 20px; 
+    }
     img{
         width :500px;
         height: 500px;

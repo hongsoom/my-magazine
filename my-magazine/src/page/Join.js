@@ -28,7 +28,7 @@ const Join = (props) => {
             <input type="text" placeholder='Username' className="Username" onChange={(e) => setName(e.target.value)} /> <br/>
             <input type="Password" placeholder='Password' className="Password" onChange={(e) =>setPw(e.target.value)} /> <br/>
             <input type="Password" placeholder='RePassword' className="RePassword" onChange={(e) => setRepw(e.target.value)} /> <br/>
-            <button onClick={signup}>
+            <button onClick={signup} disabled={id === "" || pw === "" || name === "" || repw === "" ? true : false}>
                 JOIN
             </button>
         </div>
