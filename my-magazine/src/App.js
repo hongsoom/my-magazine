@@ -2,8 +2,6 @@ import React from "react"
 import { useDispatch } from "react-redux";
 import { Route, Routes } from "react-router-dom";
 import { loadMagazineFB } from "./redux/modules/magazine";
-import { onAuthStateChanged, signOut } from "firebase/auth";
-import { auth } from "./shared/firebase";
 
 import Header from "./component/Header";
 import Main from "./page/Main";
@@ -15,21 +13,6 @@ import Login from "./page/Login";
 
 function App() {
   const dispatch = useDispatch();
-  const [is_login, setIsLogin] = React.useState(false);
-
-  console.log(auth.currentUser);
-
-  const loginCheck = async (user) => {
-    if (user) {
-      setIsLogin(true);
-    } else {
-      setIsLogin(false);
-    }
-  };
-
-  React.useEffect(() => {
-    onAuthStateChanged(auth, loginCheck);
-  }, []);
 
   React.useEffect (() => {
     dispatch(loadMagazineFB());

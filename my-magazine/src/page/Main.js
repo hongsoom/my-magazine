@@ -1,6 +1,7 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
+import { auth } from "../shared/firebase";
 import Post from "../component/post";
 import styled from "styled-components";
 import { FaPlusCircle } from "react-icons/fa";

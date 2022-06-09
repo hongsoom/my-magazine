@@ -1,14 +1,15 @@
 import React from "react";
 import { useSelector } from "react-redux";
-import { useNavigate } from "react-router-dom";
-import styled from "styled-components";
+import { useNavigate } from 'react-router-dom';
+import { auth } from "../shared/firebase";
+import styled from 'styled-components';
 import profile from "../assets/Profile.jpg";
 import { FaEdit } from "react-icons/fa";
-import "../css/Post.css";
 
 const Post = () => {
   const data = useSelector((state) => state.magazine.magazine);
   const is_login = useSelector((state) => state.user.is_login);
+
 
   const navigate = useNavigate();
 

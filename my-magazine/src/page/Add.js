@@ -10,14 +10,12 @@ const Add = () => {
     const navigate = useNavigate();
     const dispatch = useDispatch();
 
-    const [layout, setLayout] = useState('top');
     const [preview, setPreview ] = useState("");
     const [imageName, setimageName ] = useState("");
+    const [text, setText] = useState("");
 
     const name = useSelector((state) => state.user.user);
-    console.log(name)
 
-    const text_ref = useRef(null);
     const file_link_ref = useRef(null);
 
     const uploadFB = async (e) => {
@@ -44,9 +42,10 @@ const Add = () => {
 
     const addMagazine = () => {
        dispatch(addMagazineFB({
-        text : text_ref.current.value,
+        text,
         image_url : file_link_ref.current.url,
         name,
+        date : new Date(),
        }))
        navigate('/');
     }
@@ -54,14 +53,6 @@ const Add = () => {
     return(
         <Content>
             <Title>게시글 작성</Title>
-            <Layout>
-                <h4>Layout</h4>
-                <select name="layout" value={layout} onChange={(e) => { setLayout(e.target.value); }}>
-                    <option value="left">왼쪽(내용) + 오른쪽(이미지)</option>
-                    <option value="right">왼쪽(이미지) + 오른쪽(내용)</option>
-                    <option value="top">위(내용) + 아래(이미지)</option>
-                </select>
-            </Layout>   
             <FileUpload>
                 <h4>Image</h4>
                 <input type="text" disabled value={imageName ? imageName : '이미지를 고르세요!'}/>
@@ -70,8 +61,8 @@ const Add = () => {
             <PreviewContainer>
                 <img src={preview} alt="preview" />
             </PreviewContainer>
-            <textarea placeholder='게시글 작성' ref={text_ref}/> <br/>
-            <button type="button" onClick={addMagazine} disabled={text_ref === "" || file_link_ref === "" ? true : false}>게시글 작성</button> <br/>
+            <textarea placeholder='게시글 작성' value={text} onChange={(e) => { setText(e.target.value);}}/> <br/>
+            <button type="button" onClick={addMagazine} disabled={text === "" || file_link_ref === "" ? true : false}>게시글 작성</button> <br/>
         </Content>
     )
 }

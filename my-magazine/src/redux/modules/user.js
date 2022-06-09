@@ -48,7 +48,8 @@ export const LoginFB = (id, pw) => {
         user_docs.forEach((u) => {
             user_name.push(u.data());
         }); 
-        dispatch(Login(user_name[0].name))
+        console.log(user_name)
+        dispatch(Login(user_name))
     }
   }
   

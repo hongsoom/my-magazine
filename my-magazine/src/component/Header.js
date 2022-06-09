@@ -11,7 +11,8 @@ const Header = () => {
     const navigate = useNavigate();
     const dispatch = useDispatch();
 
-    const name = useSelector((state) => state.user.user);
+    const user = useSelector((state) => state.user.user);
+
     const is_login = useSelector((state) => state.user.is_login);
     
     return (
@@ -20,7 +21,7 @@ const Header = () => {
           {is_login ? (
             <Content>
              <img src={profile} alt="profile"></img>
-             <p>{name}</p>
+             <p>{user[0].name}</p>
              <button onClick={ () => dispatch(LogoutFB())}><TiExport size='30' /></button>
            </Content>
           ) : (

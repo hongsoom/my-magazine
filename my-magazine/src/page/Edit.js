@@ -15,7 +15,6 @@ const Edit = () => {
     const index  = useParams().index;
     const magazine_id =  useParams().id;
 
-    const [layout, setLayout] = useState('top');
     const [preview, setPreview ] = useState(data[index].image_url);
     const [imageName, setimageName ] = useState("");
     const [text, setText] = useState(data[index].text);
@@ -54,14 +53,7 @@ const Edit = () => {
     return(
         <Content>
             <Title>게시글 수정</Title>
-            <Layout>
-                <h4>Layout</h4>
-                <select name="layout" value={layout} onChange={(e) => { setLayout(e.target.value);}}>
-                    <option value="left">왼쪽(내용) + 오른쪽(이미지)</option>
-                    <option value="right">왼쪽(이미지) + 오른쪽(내용)</option>
-                    <option value="top">위(내용) + 아래(이미지)</option>
-                </select>
-            </Layout>   
+
             <FileUpload>
                 <h4>Image</h4>
                 <input type="text" disabled value={imageName ? imageName : '이미지를 고르세요!'}/>
