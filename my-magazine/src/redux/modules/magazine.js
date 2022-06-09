@@ -42,10 +42,6 @@ export const loadMagazineFB = () => {
         magazine_list.push({id:doc.id, ...doc.data()});
     });
 
-    magazine_list.sort((a,b) => {
-      return b.date - a.date;
-    })
-
     dispatch(loadMagazine(magazine_list));
   }
 }
@@ -68,6 +64,8 @@ export const modifyMagazineFB = (magazine, magazine_id) => {
     });
 
     const _magazine_list = getState().magazine.magazine;
+    console.log(_magazine_list);
+    
     const magazine_index = _magazine_list.findIndex((l) => {
       return l.id === magazine_id;
     })
@@ -98,9 +96,6 @@ export default function reducer(state = initialState, action = {}) {
   
       case "magazines/ADD": {
         const new_magazine_list = [...state.magazine, action.magazine];
-        new_magazine_list.sort((a,b) => {
-          return b.date - a.date;
-        })
         return { magazine: new_magazine_list };
       }
 

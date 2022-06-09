@@ -12,8 +12,8 @@ const Edit = () => {
 
     const data = useSelector((state) => state.magazine.magazine);
 
-    const index  = useParams().index;
-    const magazine_id =  useParams().id;
+    const index = useParams().index;
+    const magazine_id = useParams().id;
 
     const [preview, setPreview ] = useState(data[index].image_url);
     const [imageName, setimageName ] = useState("");
@@ -53,7 +53,6 @@ const Edit = () => {
     return(
         <Content>
             <Title>게시글 수정</Title>
-
             <FileUpload>
                 <h4>Image</h4>
                 <input type="text" disabled value={imageName ? imageName : '이미지를 고르세요!'}/>
